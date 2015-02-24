@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var display: UILabel!
 	
 	var userIsInTheMiddleOfTypingNumber = false
+	var userIsInTheMiddleOfTypingFraction = false
 	
 	@IBAction func appendDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
@@ -21,10 +22,18 @@ class ViewController: UIViewController {
 		} else {
 			display.text = digit
 			userIsInTheMiddleOfTypingNumber = true
+			userIsInTheMiddleOfTypingFraction = false
 		}
 	}
 	
-	
+	@IBAction func makeFraction(sender: UIButton) {
+		if !userIsInTheMiddleOfTypingFraction {
+			userIsInTheMiddleOfTypingFraction = true
+			appendDigit(sender)
+		} else {
+			
+		}
+	}
 	
 	@IBAction func operate(sender: UIButton) {
 		let operation = sender.currentTitle!
@@ -37,7 +46,9 @@ class ViewController: UIViewController {
 		case "+": perform { $1+$0 }
 		case "-": perform { $1-$0 }
 		case "√": perform { sqrt($0) }
-			default: break
+		case "sin": perform { sin($0) }
+		case "cos": perform { cos($0) }
+		default: break
 		}
 	}
 	
@@ -60,10 +71,6 @@ class ViewController: UIViewController {
 		operandStack.append(displayValue)
 		println("\(operandStack)")
 	}
-	
-	
-	
-	
 	
 	
 	var displayValue: Double {
