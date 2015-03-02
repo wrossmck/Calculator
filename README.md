@@ -1,4 +1,5 @@
-# Calculator App
+# Calculator App [![Build Status](https://travis-ci.org/wrossmck/calculator.svg)](https://travis-ci.org/wrossmck/calculator)
+
 *Note:* _This app is written in Swift, and is a foray into the language itself rather than an exercise into writing any kind of interesting Calculator._
 
 ## Introduction
