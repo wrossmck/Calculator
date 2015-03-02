@@ -60,6 +60,7 @@
 		ECCC6EFD1A8D59250086A6D0 = {
 			isa = PBXGroup;
 			children = (
+				EC949B791AA4F88200AA0891 /* .travis.yml */,
 				ECCC6F081A8D59260086A6D0 /* calculator */,
 				ECCC6F1E1A8D59260086A6D0 /* calculatorTests */,
 				ECCC6F071A8D59260086A6D0 /* Products */,
@@ -81,7 +82,6 @@
 				ECCC6F0D1A8D59260086A6D0 /* ViewController.swift */,
 				ECCC6F0F1A8D59260086A6D0 /* Main.storyboard */,
 				ECCC6F091A8D59260086A6D0 /* Supporting Files */,
-				EC949B791AA4F88200AA0891 /* .travis.yml */,
 			);
 			path = calculator;
 			sourceTree = "<group>";
