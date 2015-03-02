@@ -1,1 +1,6 @@
 language: objective-c
+before_script:
+- brew update && brew upgrade xctool
+xcode_project: calculator.xcodeproj
+xcode_scheme: calculatorTests
+xcode_sdk: iphonesimulator
