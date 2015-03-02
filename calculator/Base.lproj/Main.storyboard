@@ -202,7 +202,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-re-LoL">
                                 <rect key="frame" x="471" y="360" width="108" height="115"/>
-                                <state key="normal" title="pi">
+                                <state key="normal" title="π">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

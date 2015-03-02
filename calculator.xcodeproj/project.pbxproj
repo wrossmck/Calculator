@@ -26,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EC949B791AA4F88200AA0891 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
 		ECCC6F061A8D59260086A6D0 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCC6F0A1A8D59260086A6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCC6F0B1A8D59260086A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 				ECCC6F0D1A8D59260086A6D0 /* ViewController.swift */,
 				ECCC6F0F1A8D59260086A6D0 /* Main.storyboard */,
 				ECCC6F091A8D59260086A6D0 /* Supporting Files */,
+				EC949B791AA4F88200AA0891 /* .travis.yml */,
 			);
 			path = calculator;
 			sourceTree = "<group>";
@@ -407,6 +409,7 @@
 				ECCC6F271A8D59260086A6D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ECCC6F281A8D59260086A6D0 /* Build configuration list for PBXNativeTarget "calculatorTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +418,7 @@
 				ECCC6F2A1A8D59260086A6D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
