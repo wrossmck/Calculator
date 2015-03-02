@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 	
 	@IBOutlet weak var display: UILabel!
+	@IBOutlet weak var history: UILabel!
 	
 	let π = M_PI.description
 	var userIsInTheMiddleOfTypingNumber = false
@@ -48,8 +49,6 @@ class ViewController: UIViewController {
 		if !userIsInTheMiddleOfTypingFraction {
 			userIsInTheMiddleOfTypingFraction = true
 			appendDigit(sender)
-		} else {
-			
 		}
 	}
 	
@@ -68,6 +67,7 @@ class ViewController: UIViewController {
 		case "cos": perform { cos($0) }
 		default: break
 		}
+		op = operation
 	}
 	
 	func perform(operation: (Double, Double) -> Double){
@@ -86,10 +86,12 @@ class ViewController: UIViewController {
 	}
 	
 	var operandStack = Array<Double>()
+	var op = String()
 	@IBAction func enter() {
 		userIsInTheMiddleOfTypingNumber = false
 		userIsInTheMiddleOfTypingFraction = false
 		operandStack.append(displayValue)
+		history.text! = displayValue.description + " " + op + " " + history.text!
 		println("\(operandStack)")
 	}
 	

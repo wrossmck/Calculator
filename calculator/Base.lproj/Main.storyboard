@@ -312,6 +312,7 @@
                     </view>
                     <connections>
                         <outlet property="display" destination="FW8-Ex-DL5" id="xeT-Ex-McJ"/>
+                        <outlet property="history" destination="w1j-4o-KfZ" id="Kxd-jp-OBk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
