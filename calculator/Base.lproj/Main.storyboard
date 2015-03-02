@@ -206,7 +206,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q1J-bw-TLb"/>
+                                    <action selector="makeFraction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ccg-cG-PUf"/>
                                 </connections>
                             </button>
                         </subviews>

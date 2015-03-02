@@ -12,18 +12,36 @@ class ViewController: UIViewController {
 	
 	@IBOutlet weak var display: UILabel!
 	
+	let π = M_PI.description
 	var userIsInTheMiddleOfTypingNumber = false
 	var userIsInTheMiddleOfTypingFraction = false
 	
 	@IBAction func appendDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
+		
 		if userIsInTheMiddleOfTypingNumber {
-			display.text = display.text! + digit
+			if digit == "π" {
+				enter()
+				pi()
+			} else {
+				println("here")
+				display.text = display.text! + digit
+			}
 		} else {
-			display.text = digit
-			userIsInTheMiddleOfTypingNumber = true
-			userIsInTheMiddleOfTypingFraction = false
+			if digit == "π" {
+				pi()
+			} else {
+				display.text = digit
+				userIsInTheMiddleOfTypingNumber = true
+				userIsInTheMiddleOfTypingFraction = false
+			}
 		}
+	}
+	
+	func pi(){
+		display.text = π
+		enter()
+		userIsInTheMiddleOfTypingNumber = false
 	}
 	
 	@IBAction func makeFraction(sender: UIButton) {
@@ -56,6 +74,8 @@ class ViewController: UIViewController {
 		if operandStack.count >= 2 {
 			displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
 			enter()
+		} else {
+			
 		}
 	}
 	func perform(operation: (Double) -> Double){
@@ -68,6 +88,7 @@ class ViewController: UIViewController {
 	var operandStack = Array<Double>()
 	@IBAction func enter() {
 		userIsInTheMiddleOfTypingNumber = false
+		userIsInTheMiddleOfTypingFraction = false
 		operandStack.append(displayValue)
 		println("\(operandStack)")
 	}
@@ -80,6 +101,7 @@ class ViewController: UIViewController {
 		set {
 			display.text = "\(newValue)"
 			userIsInTheMiddleOfTypingNumber = false
+			userIsInTheMiddleOfTypingFraction = false
 		}
 	}
 }
