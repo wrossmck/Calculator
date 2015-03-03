@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC9707401AA673A6009074BD /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC97073F1AA673A6009074BD /* CalculatorBrain.swift */; };
 		ECCC6F0C1A8D59260086A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC6F0B1A8D59260086A6D0 /* AppDelegate.swift */; };
 		ECCC6F0E1A8D59260086A6D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC6F0D1A8D59260086A6D0 /* ViewController.swift */; };
 		ECCC6F111A8D59260086A6D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECCC6F0F1A8D59260086A6D0 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		EC949B791AA4F88200AA0891 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
+		EC97073F1AA673A6009074BD /* CalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		ECCC6F061A8D59260086A6D0 /* calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECCC6F0A1A8D59260086A6D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECCC6F0B1A8D59260086A6D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			children = (
 				ECCC6F0D1A8D59260086A6D0 /* ViewController.swift */,
 				ECCC6F0F1A8D59260086A6D0 /* Main.storyboard */,
+				EC97073F1AA673A6009074BD /* CalculatorBrain.swift */,
 				ECCC6F091A8D59260086A6D0 /* Supporting Files */,
 			);
 			path = calculator;
@@ -214,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC9707401AA673A6009074BD /* CalculatorBrain.swift in Sources */,
 				ECCC6F0E1A8D59260086A6D0 /* ViewController.swift in Sources */,
 				ECCC6F0C1A8D59260086A6D0 /* AppDelegate.swift in Sources */,
 			);
