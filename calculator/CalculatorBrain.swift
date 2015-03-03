@@ -21,13 +21,14 @@ class CalculatorBrain {
 	var knownOps = [String : Op]()
 	
 	init (){
-		knownOps[ "×" ]   = Op.BinaryOperation("×"){ $1 * $0 }
-		knownOps[ "÷" ]   = Op.BinaryOperation("÷"){ $1 / $0 }
-		knownOps[ "+" ]   = Op.BinaryOperation("+"){ $1 + $0 }
+		knownOps[ "×" ]   = Op.BinaryOperation("×", * )
+		knownOps[ "+" ]   = Op.BinaryOperation("+", + )
 		knownOps[ "-" ]   = Op.BinaryOperation("-"){ $1 - $0 }
-		knownOps[ "√" ]   = Op.UnaryOperation("√") { sqrt($0) }
-		knownOps[ "sin" ] = Op.UnaryOperation("sin"){ sin($0) }
-		knownOps[ "cos" ] = Op.UnaryOperation("cos"){ cos($0) }
+		knownOps[ "÷" ]   = Op.BinaryOperation("÷"){ $1 / $0 }
+		
+		knownOps[ "√" ]   = Op.UnaryOperation("√", sqrt)
+		knownOps[ "sin" ] = Op.UnaryOperation("sin", sin )
+		knownOps[ "cos" ] = Op.UnaryOperation("cos", cos )
 	}
 	
 	func pushOperand(operand: Double){
