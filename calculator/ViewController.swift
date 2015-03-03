@@ -25,7 +25,6 @@ class ViewController: UIViewController {
 				enter()
 				pi()
 			} else {
-				println("here")
 				display.text = display.text! + digit
 			}
 		} else {
@@ -53,29 +52,27 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func operate(sender: UIButton) {
-		let operation = sender.currentTitle!
+		op = sender.currentTitle!
 		if userIsInTheMiddleOfTypingNumber{
 			enter()
 		}
-		switch operation {
-		case "×": perform { $1*$0 }
-		case "÷": perform { $1/$0 }
-		case "+": perform { $1+$0 }
-		case "-": perform { $1-$0 }
-		case "√": perform { sqrt($0) }
-		case "sin": perform { sin($0) }
-		case "cos": perform { cos($0) }
-		default: break
+		
+		switch op {
+			case "×": perform { $1*$0 }
+			case "÷": perform { $1/$0 }
+			case "+": perform { $1+$0 }
+			case "-": perform { $1-$0 }
+			case "√": perform { sqrt($0) }
+			case "sin": perform { sin($0) }
+			case "cos": perform { cos($0) }
+			default: break
 		}
-		op = operation
 	}
 	
 	func perform(operation: (Double, Double) -> Double){
 		if operandStack.count >= 2 {
 			displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
 			enter()
-		} else {
-			
 		}
 	}
 	func perform(operation: (Double) -> Double){
@@ -88,11 +85,23 @@ class ViewController: UIViewController {
 	var operandStack = Array<Double>()
 	var op = String()
 	@IBAction func enter() {
+		if op != ""{
+			op = op + " , "
+		}
+		
+		if displayValue.description == π {
+			history.text! = "π , " + history.text!
+		} else if userIsInTheMiddleOfTypingNumber {
+			history.text! = op + displayValue.description + " , " + history.text!
+		} else {
+			history.text! = op +  history.text!
+		}
+		
 		userIsInTheMiddleOfTypingNumber = false
 		userIsInTheMiddleOfTypingFraction = false
 		operandStack.append(displayValue)
-		history.text! = displayValue.description + " " + op + " " + history.text!
 		println("\(operandStack)")
+		op = ""
 	}
 	
 	
