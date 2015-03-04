@@ -10,15 +10,15 @@ import Foundation
 
 class CalculatorBrain {
 	
-	enum Op{
+	private enum Op{
 		case Operand(Double)
 		case UnaryOperation(String, Double -> Double)
 		case BinaryOperation(String, (Double, Double) -> Double)
 		
 	}
 	
-	var opStack = [Op]()
-	var knownOps = [String : Op]()
+	private var opStack = [Op]()
+	private var knownOps = [String : Op]()
 	
 	init (){
 		knownOps[ "×" ]   = Op.BinaryOperation("×", * )
@@ -31,11 +31,47 @@ class CalculatorBrain {
 		knownOps[ "cos" ] = Op.UnaryOperation("cos", cos )
 	}
 	
+	func evaluate() -> Double? {
+		let (res, remainder) = evaluate(opStack)
+		return res
+		
+	}
+	
+	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {
+		
+		if !ops.isEmpty{
+			var remainingOps = ops
+			let op = remainingOps.removeLast()
+			
+			switch op{
+			case .Operand(let operand):
+				return (operand, remainingOps)
+			case .UnaryOperation(_, let operation):
+				let operandEvaluation = evaluate(remainingOps)
+				if let operand = operandEvaluation.result{
+					return (operation(operand), operandEvaluation.remainingOps)
+				}
+			case .BinaryOperation(_, let operation):
+				let operandEvaluation1 = evaluate(remainingOps)
+				if let operand1 = operandEvaluation1.result{
+					let operandEvaluation2 = evaluate(operandEvaluation1.remainingOps)
+					if let operand2 = operandEvaluation2.result{
+						return (operation(operand2, operand1), operandEvaluation2.remainingOps)
+					}
+				}
+			}
+		}
+		return (nil, ops)
+	}
+	
 	func pushOperand(operand: Double){
 		opStack.append(Op.Operand(operand))
 	}
 	
 	func puerformOperand(symbol: String){
+		if let operation = knownOps[symbol] {
+			opStack.append(operation)
+		}
 		
 	}
 }
