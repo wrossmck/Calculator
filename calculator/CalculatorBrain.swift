@@ -34,11 +34,9 @@ class CalculatorBrain {
 	func evaluate() -> Double? {
 		let (res, remainder) = evaluate(opStack)
 		return res
-		
 	}
 	
 	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {
-		
 		if !ops.isEmpty{
 			var remainingOps = ops
 			let op = remainingOps.removeLast()
@@ -64,14 +62,15 @@ class CalculatorBrain {
 		return (nil, ops)
 	}
 	
-	func pushOperand(operand: Double){
+	func pushOperand(operand: Double) -> Double?{
 		opStack.append(Op.Operand(operand))
+		return evaluate()
 	}
 	
-	func puerformOperand(symbol: String){
+	func performOperand(symbol: String) -> Double?{
 		if let operation = knownOps[symbol] {
 			opStack.append(operation)
 		}
-		
+		return evaluate()
 	}
 }
