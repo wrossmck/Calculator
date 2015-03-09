@@ -28,9 +28,12 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(4.5)
 		cb.pushOperand(8)
 		cb.performOperand("*")
+		cb.pushOperand(8)
+		cb.performOperand("+")
 		
+		let res = cb.evaluate()
 		
-        XCTAssert(cb.evaluate()! == 36, "Pass")
+        XCTAssert(res == 44, "Pass")
     }
     
     func testPerformanceExample() {

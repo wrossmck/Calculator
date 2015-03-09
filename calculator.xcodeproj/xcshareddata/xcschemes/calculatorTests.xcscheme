@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ECCC6F1A1A8D59260086A6D0"
-            BuildableName = "calculatorTests.xctest"
-            BlueprintName = "calculatorTests"
+            BlueprintIdentifier = "ECCC6F051A8D59260086A6D0"
+            BuildableName = "calculator.app"
+            BlueprintName = "calculator"
             ReferencedContainer = "container:calculator.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

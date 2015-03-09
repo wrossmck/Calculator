@@ -18,12 +18,12 @@ class CalculatorBrain {
 		var description: String{
 			get {
 				switch self{
-					case .Operand(let operand):
-						return "\(operand)"
-					case .UnaryOperation(let symbol, _):
-						return "\(symbol)"
-					case .BinaryOperation(let symbol, _):
-						return "\(symbol)"
+				case .Operand(let operand):
+					return "\(operand)"
+				case .UnaryOperation(let unary, _):
+					return unary
+				case .BinaryOperation(let binary, _):
+					return binary
 				}
 			}
 		}
@@ -34,7 +34,7 @@ class CalculatorBrain {
 	
 	init (){
 		func learnOp (op: Op){
-			knownOps[op.description] = op
+			knownOps[ op.description ] = op
 		}
 		learnOp( Op.BinaryOperation("*", * ) )
 		learnOp( Op.BinaryOperation("+", + ) )
@@ -60,6 +60,8 @@ class CalculatorBrain {
 			switch op{
 			case .Operand(let operand):
 				return (operand, remainingOps)
+//			the operands are taken from the stack here, so we can ignore
+//				for both the unary & binary case
 			case .UnaryOperation(_, let operation):
 				let operandEvaluation = evaluate(remainingOps)
 				if let operand = operandEvaluation.result{
@@ -70,7 +72,7 @@ class CalculatorBrain {
 				if let operand1 = operandEvaluation1.result{
 					let operandEvaluation2 = evaluate(operandEvaluation1.remainingOps)
 					if let operand2 = operandEvaluation2.result{
-						return (operation(operand2, operand1), operandEvaluation2.remainingOps)
+						return (operation(operand1, operand2), operandEvaluation2.remainingOps)
 					}
 				}
 			}
