@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EC40F0B91AAE374F00C8B547 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC97073F1AA673A6009074BD /* CalculatorBrain.swift */; };
 		EC9707401AA673A6009074BD /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC97073F1AA673A6009074BD /* CalculatorBrain.swift */; };
 		ECCC6F0C1A8D59260086A6D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC6F0B1A8D59260086A6D0 /* AppDelegate.swift */; };
 		ECCC6F0E1A8D59260086A6D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC6F0D1A8D59260086A6D0 /* ViewController.swift */; };
@@ -227,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC40F0B91AAE374F00C8B547 /* CalculatorBrain.swift in Sources */,
 				ECCC6F221A8D59260086A6D0 /* calculatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

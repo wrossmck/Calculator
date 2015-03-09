@@ -36,10 +36,10 @@ class CalculatorBrain {
 		func learnOp (op: Op){
 			knownOps[op.description] = op
 		}
-		learnOp( Op.BinaryOperation("×", * ) )
+		learnOp( Op.BinaryOperation("*", * ) )
 		learnOp( Op.BinaryOperation("+", + ) )
 		learnOp( Op.BinaryOperation("-"){ $1 - $0 } )
-		learnOp( Op.BinaryOperation("÷"){ $1 / $0 } )
+		learnOp( Op.BinaryOperation("/"){ $1 / $0 } )
 	 
 		learnOp( Op.UnaryOperation("√", sqrt) )
 		learnOp( Op.UnaryOperation("sin", sin ) )

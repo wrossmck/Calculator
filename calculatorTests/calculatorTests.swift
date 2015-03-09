@@ -21,9 +21,16 @@ class calculatorTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testCalculatorBrain() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+		
+		var cb = CalculatorBrain()
+		cb.pushOperand(4.5)
+		cb.pushOperand(8)
+		cb.performOperand("*")
+		
+		
+        XCTAssert(cb.evaluate()! == 36, "Pass")
     }
     
     func testPerformanceExample() {
