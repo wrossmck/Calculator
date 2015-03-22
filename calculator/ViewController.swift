@@ -58,11 +58,12 @@ class ViewController: UIViewController {
 		if userIsInTheMiddleOfTypingNumber{
 			enter()
 		}
+		// TODO fix history display area. Something is happening here with repeated entries being added into the history
 		if let operation = sender.currentTitle{
 			if let result = brain.performOperand(operation) {
 				displayValue = result
 			} else {
-				displayValue = 0 // TODO: nil
+				displayValue = nil
 			}
 		}
 	}
@@ -73,35 +74,44 @@ class ViewController: UIViewController {
 		if op != ""{
 			op = op + " , "
 		}
+		if let dv = displayValue? {
+			if dv.description == π {
+				history.text! = "π , " + history.text!
+			} else if userIsInTheMiddleOfTypingNumber {
+				history.text! = op + dv.description + " , " + history.text!
+			} else {
+				history.text! = op +  history.text!
+			}
 		
-		if displayValue.description == π {
-			history.text! = "π , " + history.text!
-		} else if userIsInTheMiddleOfTypingNumber {
-			history.text! = op + displayValue.description + " , " + history.text!
-		} else {
-			history.text! = op +  history.text!
+			userIsInTheMiddleOfTypingNumber = false
+			userIsInTheMiddleOfTypingFraction = false
+			
+			
+			if let result = brain.pushOperand(dv) {
+				displayValue = result
+			} else {
+				displayValue = nil
+			}
+		
+			op = ""
 		}
-		
-		userIsInTheMiddleOfTypingNumber = false
-		userIsInTheMiddleOfTypingFraction = false
-		
-		
-		if let result = brain.pushOperand(displayValue) {
-			displayValue = result
-		} else {
-			displayValue = 0 // TODO: nil
-		}
-		
-		op = ""
 	}
 	
 	
-	var displayValue: Double {
+	var displayValue: Double? {
 		get {
-			return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+			if let num = NSNumberFormatter().numberFromString(display.text!) {
+				return num.doubleValue
+			} else {
+				return nil
+			}
 		}
 		set {
-			display.text = "\(newValue)"
+			if let num = newValue {
+				display.text = "\(num)"
+			} else {
+				display.text = ""
+			}
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false
 		}

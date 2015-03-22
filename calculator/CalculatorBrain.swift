@@ -47,37 +47,40 @@ class CalculatorBrain {
 	}
 	
 	func evaluate() -> Double? {
-		let (res, remainder) = evaluate(opStack)
+		let (res, remainder, history) = evaluate(opStack)
 		println("\(opStack) = \(res) with \(remainder) left over")
 		return res
 	}
 	
-	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {
+	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op], history: [String]) {
+//		TODO: have a history accumulator evaluate (ops: [Op], history: [""])
+		
+	
 		if !ops.isEmpty{
 			var remainingOps = ops
 			let op = remainingOps.removeLast()
 			
 			switch op{
 			case .Operand(let operand):
-				return (operand, remainingOps)
+				return (operand, remainingOps, ["\(operand)"])
 //			the operands are taken from the stack here, so we can ignore
 //				for both the unary & binary case
 			case .UnaryOperation(_, let operation):
 				let operandEvaluation = evaluate(remainingOps)
 				if let operand = operandEvaluation.result{
-					return (operation(operand), operandEvaluation.remainingOps)
+					return (operation(operand), operandEvaluation.remainingOps,[""])
 				}
 			case .BinaryOperation(_, let operation):
 				let operandEvaluation1 = evaluate(remainingOps)
 				if let operand1 = operandEvaluation1.result{
 					let operandEvaluation2 = evaluate(operandEvaluation1.remainingOps)
 					if let operand2 = operandEvaluation2.result{
-						return (operation(operand1, operand2), operandEvaluation2.remainingOps)
+						return (operation(operand1, operand2), operandEvaluation2.remainingOps,[""])
 					}
 				}
 			}
 		}
-		return (nil, ops)
+		return (nil, ops, [""])
 	}
 	
 	func pushOperand(operand: Double) -> Double?{

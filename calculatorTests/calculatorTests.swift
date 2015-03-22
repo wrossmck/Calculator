@@ -20,25 +20,30 @@ class calculatorTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+	
     func testCalculatorBrain() {
         // This is an example of a functional test case.
 		
-		var cb = CalculatorBrain()
-		cb.pushOperand(4.5)
-		cb.pushOperand(8)
-		cb.performOperand("*")
-		cb.pushOperand(8)
-		cb.performOperand("+")
-		
-		let res = cb.evaluate()
-		
-        XCTAssert(res == 44, "Pass")
+		self.measureBlock() {
+			
+			var cb = CalculatorBrain()
+			cb.pushOperand(4.5)
+			cb.pushOperand(8)
+			cb.performOperand("*")
+			cb.pushOperand(8)
+			cb.performOperand("+")
+			
+			let res = cb.evaluate()
+			
+			XCTAssert(res == 44, "Pass")
+			// Put the code you want to measure the time of here.
+		}
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock() {
+			
             // Put the code you want to measure the time of here.
         }
     }
