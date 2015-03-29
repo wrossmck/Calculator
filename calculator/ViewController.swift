@@ -23,20 +23,11 @@ class ViewController: UIViewController {
 		let digit = sender.currentTitle!
 		
 		if userIsInTheMiddleOfTypingNumber {
-			if digit == "π" {
-				enter()
-				pi()
-			} else {
-				display.text = display.text! + digit
-			}
+			display.text = display.text! + digit
 		} else {
-			if digit == "π" {
-				pi()
-			} else {
-				display.text = digit
-				userIsInTheMiddleOfTypingNumber = true
-				userIsInTheMiddleOfTypingFraction = false
-			}
+			display.text = digit
+			userIsInTheMiddleOfTypingNumber = true
+			userIsInTheMiddleOfTypingFraction = false
 		}
 	}
 	
@@ -55,16 +46,10 @@ class ViewController: UIViewController {
 	
 	@IBAction func operate(sender: UIButton) {
 		op = sender.currentTitle!
-		if userIsInTheMiddleOfTypingNumber{
-			enter()
-		}
+		enter()
 		// TODO fix history display area. Something is happening here with repeated entries being added into the history
 		if let operation = sender.currentTitle{
-			if let result = brain.performOperand(operation) {
-				displayValue = result
-			} else {
-				displayValue = nil
-			}
+			displayValue = brain.performOperand(operation)
 		}
 	}
 	
@@ -75,9 +60,7 @@ class ViewController: UIViewController {
 			op = op + " , "
 		}
 		if let dv = displayValue? {
-			if dv.description == π {
-				history.text! = "π , " + history.text!
-			} else if userIsInTheMiddleOfTypingNumber {
+			if userIsInTheMiddleOfTypingNumber {
 				history.text! = op + dv.description + " , " + history.text!
 			} else {
 				history.text! = op +  history.text!
@@ -86,13 +69,7 @@ class ViewController: UIViewController {
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false
 			
-			
-			if let result = brain.pushOperand(dv) {
-				displayValue = result
-			} else {
-				displayValue = nil
-			}
-		
+			displayValue = brain.pushOperand(dv)
 			op = ""
 		}
 	}
@@ -110,7 +87,7 @@ class ViewController: UIViewController {
 			if let num = newValue {
 				display.text = "\(num)"
 			} else {
-				display.text = ""
+				display.text = "0"
 			}
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false

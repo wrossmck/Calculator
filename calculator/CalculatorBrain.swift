@@ -12,6 +12,7 @@ class CalculatorBrain {
 	
 	private enum Op: Printable{
 		case Operand(Double)
+		case Const(String, Double)
 		case UnaryOperation(String, Double -> Double)
 		case BinaryOperation(String, (Double, Double) -> Double)
 		
@@ -20,6 +21,8 @@ class CalculatorBrain {
 				switch self{
 				case .Operand(let operand):
 					return "\(operand)"
+				case .Const(let desc, _):
+					return "\(desc)"
 				case .UnaryOperation(let unary, _):
 					return unary
 				case .BinaryOperation(let binary, _):
@@ -36,6 +39,8 @@ class CalculatorBrain {
 		func learnOp (op: Op){
 			knownOps[ op.description ] = op
 		}
+		learnOp( Op.Const("π", M_PI) )
+		
 		learnOp( Op.BinaryOperation("*", * ) )
 		learnOp( Op.BinaryOperation("+", + ) )
 		learnOp( Op.BinaryOperation("-"){ $1 - $0 } )
@@ -49,6 +54,7 @@ class CalculatorBrain {
 	func evaluate() -> Double? {
 		let (res, remainder, history) = evaluate(opStack)
 		println("\(opStack) = \(res) with \(remainder) left over")
+		println("History =  \(history)")
 		return res
 	}
 	
@@ -68,7 +74,7 @@ class CalculatorBrain {
 			case .UnaryOperation(_, let operation):
 				let operandEvaluation = evaluate(remainingOps)
 				if let operand = operandEvaluation.result{
-					return (operation(operand), operandEvaluation.remainingOps,[""])
+					return (operation(operand), operandEvaluation.remainingOps, [""])
 				}
 			case .BinaryOperation(_, let operation):
 				let operandEvaluation1 = evaluate(remainingOps)
