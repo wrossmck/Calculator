@@ -59,14 +59,15 @@ class CalculatorBrain {
 	}
 	
 	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op], history: [String]) {
-//		TODO: have a history accumulator evaluate (ops: [Op], history: [""])
-		
+		// This function uses an accumulator for the history. This can be seen below when the history value returned is [""]. This only happens in the case where either no input has been given, or at the deepest step of recursion, where it is set initially.
 	
 		if !ops.isEmpty{
 			var remainingOps = ops
 			let op = remainingOps.removeLast()
 			
 			switch op{
+			case .Const(_, let operand):
+				return (operand, remainingOps, ["\(operand)"])
 			case .Operand(let operand):
 				return (operand, remainingOps, ["\(operand)"])
 //			the operands are taken from the stack here, so we can ignore
@@ -81,7 +82,7 @@ class CalculatorBrain {
 				if let operand1 = operandEvaluation1.result{
 					let operandEvaluation2 = evaluate(operandEvaluation1.remainingOps)
 					if let operand2 = operandEvaluation2.result{
-						return (operation(operand1, operand2), operandEvaluation2.remainingOps,[""])
+						return (operation(operand1, operand2), operandEvaluation2.remainingOps, [""])
 					}
 				}
 			}
