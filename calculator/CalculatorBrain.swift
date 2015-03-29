@@ -52,42 +52,40 @@ class CalculatorBrain {
 	}
 	
 	func evaluate() -> Double? {
-		let (res, remainder, history) = evaluate(opStack)
+		let (res, remainder) = evaluate(opStack)
 		println("\(opStack) = \(res) with \(remainder) left over")
-		println("History =  \(history)")
 		return res
 	}
 	
-	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op], history: [String]) {
-		// This function uses an accumulator for the history. This can be seen below when the history value returned is [""]. This only happens in the case where either no input has been given, or at the deepest step of recursion, where it is set initially.
-	
+	private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op]) {
+		
 		if !ops.isEmpty{
 			var remainingOps = ops
 			let op = remainingOps.removeLast()
 			
 			switch op{
 			case .Const(_, let operand):
-				return (operand, remainingOps, ["\(operand)"])
+				return (operand, remainingOps)
 			case .Operand(let operand):
-				return (operand, remainingOps, ["\(operand)"])
+				return (operand, remainingOps)
 //			the operands are taken from the stack here, so we can ignore
 //				for both the unary & binary case
 			case .UnaryOperation(_, let operation):
 				let operandEvaluation = evaluate(remainingOps)
 				if let operand = operandEvaluation.result{
-					return (operation(operand), operandEvaluation.remainingOps, [""])
+					return (operation(operand), operandEvaluation.remainingOps)
 				}
 			case .BinaryOperation(_, let operation):
 				let operandEvaluation1 = evaluate(remainingOps)
 				if let operand1 = operandEvaluation1.result{
 					let operandEvaluation2 = evaluate(operandEvaluation1.remainingOps)
 					if let operand2 = operandEvaluation2.result{
-						return (operation(operand1, operand2), operandEvaluation2.remainingOps, [""])
+						return (operation(operand1, operand2), operandEvaluation2.remainingOps)
 					}
 				}
 			}
 		}
-		return (nil, ops, [""])
+		return (nil, ops)
 	}
 	
 	func pushOperand(operand: Double) -> Double?{
