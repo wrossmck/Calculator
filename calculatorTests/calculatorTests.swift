@@ -36,15 +36,25 @@ class calculatorTests: XCTestCase {
 			let res = cb.evaluate()
 			
 			XCTAssert(res == 44, "Pass")
-			// Put the code you want to measure the time of here.
 		}
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
+    func testOptionalDouble() {
         self.measureBlock() {
 			
-            // Put the code you want to measure the time of here.
+			var cb = CalculatorBrain()
+			
+			cb.pushOperand(4.5)
+			cb.pushOperand(8)
+			cb.pushOperand(4.5)
+			cb.pushOperand(8)
+			cb.performOperand("*")
+			cb.performOperand("*")
+			cb.performOperand("*")
+			cb.performOperand("*")
+			
+			let res = cb.evaluate()
+			XCTAssert(res == nil, "Pass")
         }
     }
     
