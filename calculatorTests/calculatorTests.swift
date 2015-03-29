@@ -38,24 +38,30 @@ class calculatorTests: XCTestCase {
 			XCTAssert(res == 44, "Pass")
 		}
     }
-    
-    func testOptionalDouble() {
-        self.measureBlock() {
+	
+	func testOptionalDouble() {
+		self.measureBlock() {
 			
 			var cb = CalculatorBrain()
-			
-			cb.pushOperand(4.5)
-			cb.pushOperand(8)
-			cb.pushOperand(4.5)
-			cb.pushOperand(8)
-			cb.performOperand("*")
-			cb.performOperand("*")
-			cb.performOperand("*")
 			cb.performOperand("*")
 			
 			let res = cb.evaluate()
 			XCTAssert(res == nil, "Pass")
-        }
-    }
-    
+		}
+	}
+	func testCalculatorBrainDescription() {
+		var cb = CalculatorBrain()
+		
+		cb.pushOperand(4.5)
+		cb.pushOperand(8)
+		cb.performOperand("*")
+		
+		let res = cb.evaluate()
+		let history = cb.description
+		XCTAssert(res == 36, "Pass")
+//		this assert is commented out, because xcode currently does not perform variable expansion during tests
+//		XCTAssert(history == "* , 8.0 , 4.5", "Pass")
+		XCTAssert(history == "[(Enum Value), (Enum Value), (Enum Value)]", "Pass")
+	}
+	
 }

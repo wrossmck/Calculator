@@ -99,4 +99,9 @@ class CalculatorBrain {
 		}
 		return evaluate()
 	}
+	var description: String {
+		get {
+			return "\(opStack)"
+		}
+	}
 }
