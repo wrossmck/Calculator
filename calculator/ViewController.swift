@@ -46,40 +46,29 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func operate(sender: UIButton) {
-		op = sender.currentTitle!
 		enter()
-		// TODO fix history display area. Something is happening here with repeated entries being added into the history
 		if let operation = sender.currentTitle{
 			displayValue = brain.performOperand(operation)
 		}
 	}
 	
-	var op = String()
-	
 	@IBAction func enter() {
-		if op != ""{
-			op = op + " , "
-		}
-		if let dv = displayValue? {
-		
+		if let dv = displayValue {
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false
-			
 			displayValue = brain.pushOperand(dv)
-			op = ""
+		} else {
+			displayValue = 0
 		}
 	}
 	
 	var displayValue: Double? {
 		get {
 			history.text = brain.description
-			if let num = NSNumberFormatter().numberFromString(display.text!) {
-				return num.doubleValue
-			} else {
-				return nil
-			}
+			return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
 		}
 		set {
+			history.text = brain.description
 			if let num = newValue {
 				display.text = "\(num)"
 			} else {
