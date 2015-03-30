@@ -13,6 +13,7 @@ class ViewController: UIViewController {
 	@IBOutlet weak var display: UILabel!
 	@IBOutlet weak var history: UILabel!
 	
+	
 	let π = M_PI.description
 	var userIsInTheMiddleOfTypingNumber = false
 	var userIsInTheMiddleOfTypingFraction = false
@@ -60,11 +61,6 @@ class ViewController: UIViewController {
 			op = op + " , "
 		}
 		if let dv = displayValue? {
-			if userIsInTheMiddleOfTypingNumber {
-				history.text! = op + dv.description + " , " + history.text!
-			} else {
-				history.text! = op +  history.text!
-			}
 		
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false
@@ -74,9 +70,9 @@ class ViewController: UIViewController {
 		}
 	}
 	
-	
 	var displayValue: Double? {
 		get {
+			history.text = brain.description
 			if let num = NSNumberFormatter().numberFromString(display.text!) {
 				return num.doubleValue
 			} else {
