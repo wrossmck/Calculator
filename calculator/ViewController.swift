@@ -48,7 +48,7 @@ class ViewController: UIViewController {
 	@IBAction func operate(sender: UIButton) {
 		enter()
 		if let operation = sender.currentTitle{
-			displayValue = brain.performOperand(operation)
+			displayValue = brain.performOperation(operation)
 		}
 	}
 	

@@ -93,7 +93,7 @@ class CalculatorBrain {
 		return evaluate()
 	}
 	
-	func performOperand(symbol: String) -> Double?{
+	func performOperation(symbol: String) -> Double?{
 		if let operation = knownOps[symbol] {
 			opStack.append(operation)
 		}
