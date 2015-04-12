@@ -68,7 +68,7 @@ class CalculatorBrain {
 		learnOp( Op.BinaryOperation("*", * ) )
 		learnOp( Op.BinaryOperation("+", + ) )
 		learnOp( Op.BinaryOperation("-"){ $1 - $0 } )
-		learnOp( Op.BinaryOperation("/"){ $1 / $0 } )
+		learnOp( Op.BinaryOperation("÷"){ $1 / $0 } )
 	 
 		learnOp( Op.UnaryOperation("√", sqrt) )
 		learnOp( Op.UnaryOperation("sin", sin ) )
@@ -137,7 +137,9 @@ class CalculatorBrain {
 				}
 			}
 		}
-		return (nil, ops)
+//		we actually want this to return something valid
+//		since there are cases when there is only part of an expression
+		return ("?", ops)
 	}
 	var description: String {
 		get {

@@ -95,6 +95,21 @@ class calculatorTests: XCTestCase {
 		XCTAssertEqual("cos(10)", cb.description, "Pass")
 	}
 	
+	func testPartialDescription() {
+		let cb = CalculatorBrain()
+		cb.pushOperand(10)
+		cb.performOperation("+")
+		XCTAssertEqual("? + 10",cb.description, "Pass")
+	}
+	
+	func testDivideDescription() {
+		let cb = CalculatorBrain()
+		cb.pushOperand(10)
+		cb.pushOperand(2)
+		cb.performOperation("÷")
+		XCTAssertEqual("10 ÷ 2", cb.description, "Pass")
+	}
+	
 	func testUnaryDescription() {
 		let cb = CalculatorBrain()
 		cb.pushOperand(10)
