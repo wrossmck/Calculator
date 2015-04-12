@@ -87,10 +87,10 @@ class CalculatorBrain {
 			let op = remainingOps.removeLast()
 			
 			switch op{
-			case .Const(_, let operand):
-				return (operand(), remainingOps)
 			case .Operand(let operand):
 				return (operand, remainingOps)
+			case .Const(_, let operand):
+				return (operand(), remainingOps)
 			case .UnaryOperation(_, let operation):
 				let operandEvaluation = evaluate(remainingOps)
 				if let operand = operandEvaluation.result{
@@ -116,7 +116,7 @@ class CalculatorBrain {
 			
 			switch op{
 			case .Operand(let operand):
-				return ("\(operand)" , remainingOps)
+				return (String(format: "%g", operand) , remainingOps)
 			case .Const(let operand, _):
 				return (operand, remainingOps)
 			case .UnaryOperation(let operation, _):
@@ -139,6 +139,17 @@ class CalculatorBrain {
 		}
 		return (nil, ops)
 	}
+	var description: String {
+		get {
+			var (result, ops) = ("", opStack)
+			do {
+				var current: String?
+				(current, ops) = description(ops)
+				result = result == "" ? current! : "\(current!), \(result)"
+			} while ops.count > 0
+			return result
+		}
+	}
 	
 	
 	
@@ -153,16 +164,5 @@ class CalculatorBrain {
 			opStack.append(operation)
 		}
 		return evaluate()
-	}
-	var description: String {
-		get {
-			var (result, ops) = ("", opStack)
-			do {
-				var current: String?
-				(current, ops) = description(ops)
-				result = result == "" ? current! : "\(current!), \(result)"
-			} while ops.count > 0
-			return result
-		}
 	}
 }

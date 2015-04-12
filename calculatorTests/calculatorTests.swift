@@ -39,7 +39,7 @@ class calculatorTests: XCTestCase {
 		cb.performOperation("*")
 		
 		XCTAssert(cb.evaluate() == 36, "Pass")
-		XCTAssert(cb.description == "(4.5 * 8)", "Basic multiplication description")
+		XCTAssertEqual("4.5 * 8", cb.description, "Basic multiplication description")
 	}
 	
 	func testSimpleAddition() {
@@ -67,7 +67,7 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(4)
 		cb.performOperation("+")
 		let result = cb.evaluate()
-		XCTAssertEqual("(3.0+4.0)", cb.description, "Pass")
+		XCTAssertEqual("3 + 4", cb.description, "Pass")
 	}
 	
 	func testMoreAdditionDescription() {
@@ -78,7 +78,7 @@ class calculatorTests: XCTestCase {
 		cb.performOperation("+")
 		cb.performOperation("+")
 		let result = cb.evaluate()
-		XCTAssertEqual("(3.0+(4.0+5.0))", cb.description, "Pass")
+		XCTAssertEqual("3 + (4 + 5)", cb.description, "Pass")
 	}
 	
 	func testCos() {
@@ -92,7 +92,7 @@ class calculatorTests: XCTestCase {
 		let cb = CalculatorBrain()
 		cb.pushOperand(10)
 		cb.performOperation("cos")
-		XCTAssertEqual("cos(10.0)", cb.description, "Pass")
+		XCTAssertEqual("cos(10)", cb.description, "Pass")
 	}
 	
 	func testUnaryDescription() {
