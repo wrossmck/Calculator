@@ -47,7 +47,7 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(0.1)
 		cb.pushOperand(0.3)
 		cb.performOperation("+")
-		XCTAssertTrue(cb.evaluate() == 0.4, "Pass")
+		XCTAssertEqual(0.4, cb.evaluate()!, "testSimpleAddition")
 	}
 	
 	func testMoreAddition() {
@@ -58,7 +58,7 @@ class calculatorTests: XCTestCase {
 		cb.performOperation("+")
 		cb.performOperation("+")
 		let result = cb.evaluate()
-		XCTAssertEqual(12, result!, "Pass")
+		XCTAssertEqual(12, result!, "testMoreAddition")
 	}
 	
 	func testAdditionDescription() {
@@ -67,7 +67,7 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(4)
 		cb.performOperation("+")
 		let result = cb.evaluate()
-		XCTAssertEqual("3 + 4", cb.description, "Pass")
+		XCTAssertEqual("3 + 4", cb.description, "testAdditionDescription")
 	}
 	
 	func testMoreAdditionDescription() {
@@ -78,7 +78,7 @@ class calculatorTests: XCTestCase {
 		cb.performOperation("+")
 		cb.performOperation("+")
 		let result = cb.evaluate()
-		XCTAssertEqual("3 + (4 + 5)", cb.description, "Pass")
+		XCTAssertEqual("3 + (4 + 5)", cb.description, "testMoreAdditionDescription")
 	}
 	
 	func testCos() {
@@ -86,20 +86,20 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(10)
 		cb.performOperation("cos")
 		let result = cb.evaluate()
-		XCTAssertEqualWithAccuracy(-0.839, result!, 0.01, "Pass")
+		XCTAssertEqualWithAccuracy(-0.839, result!, 0.01, "testCos")
 	}
 	func testCosDescription() {
 		let cb = CalculatorBrain()
 		cb.pushOperand(10)
 		cb.performOperation("cos")
-		XCTAssertEqual("cos(10)", cb.description, "Pass")
+		XCTAssertEqual("cos(10)", cb.description, "testCosDescription")
 	}
 	
 	func testPartialDescription() {
 		let cb = CalculatorBrain()
 		cb.pushOperand(10)
 		cb.performOperation("+")
-		XCTAssertEqual("? + 10",cb.description, "Pass")
+		XCTAssertEqual("? + 10",cb.description, "testPartialDescription")
 	}
 	
 	func testDivideDescription() {
@@ -107,14 +107,19 @@ class calculatorTests: XCTestCase {
 		cb.pushOperand(10)
 		cb.pushOperand(2)
 		cb.performOperation("÷")
-		XCTAssertEqual("10 ÷ 2", cb.description, "Pass")
+		XCTAssertEqual("10 ÷ 2", cb.description, "testDivideDescription")
 	}
 	
-	func testUnaryDescription() {
+	func testConst() {
 		let cb = CalculatorBrain()
-		cb.pushOperand(10)
+		cb.performOperation("π")
+		XCTAssertEqual("π", cb.description, "testConstPi")
+		XCTAssertEqual(M_PI, cb.evaluate()!, "testConstPiEvaluate")
+	}
+	func testConstDescription() {
+		let cb = CalculatorBrain()
+		cb.performOperation("π")
 		cb.performOperation("cos")
-		println("\n\n" + cb.description + "\n\n")
-		XCTAssertTrue(true, "Pass")
+		XCTAssertEqual("cos(π)", cb.description, "testConstDescription")
 	}
 }

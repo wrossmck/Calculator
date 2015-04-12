@@ -46,9 +46,24 @@ class ViewController: UIViewController {
 	}
 	
 	@IBAction func operate(sender: UIButton) {
-		enter()
-		if let operation = sender.currentTitle{
-			displayValue = brain.performOperation(operation)
+		if let operation = sender.currentTitle {
+			if userIsInTheMiddleOfTypingNumber {
+				if operation == "±" {
+					let displayText = display.text!
+					if (displayText.rangeOfString("-") != nil) {
+						display.text = dropFirst(displayText)
+					} else {
+						display.text = "-" + displayText
+					}
+					return
+				}
+				enter()
+			}
+			if let result = brain.performOperation(operation) {
+				displayValue = result
+			} else {
+				displayValue = nil
+			}
 		}
 	}
 	
@@ -62,20 +77,68 @@ class ViewController: UIViewController {
 		}
 	}
 	
-	var displayValue: Double? {
-		get {
-			history.text = brain.description
-			return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
-		}
-		set {
-			history.text = brain.description
-			if let num = newValue {
-				display.text = "\(num)"
+	@IBAction func clear() {
+		brain = CalculatorBrain()
+		displayValue = nil
+		history.text = ""
+	}
+	
+	@IBAction func backSpace() {
+		if userIsInTheMiddleOfTypingNumber {
+			let displayText = display.text!
+			if count(displayText) > 1 {
+				display.text = dropLast(displayText)
+				if (count(displayText) == 2) && (display.text?.rangeOfString("-") != nil) {
+					display.text = "-0"
+				}
 			} else {
 				display.text = "0"
 			}
+		}
+	}
+	
+	@IBAction func storeVariable(sender: UIButton) {
+		if let variable = last(sender.currentTitle!) {
+			if displayValue != nil {
+				brain.variableHeap["\(variable)"] = displayValue
+				if let result = brain.evaluate() {
+					displayValue = result
+				} else {
+					displayValue = nil
+				}
+			}
+		}
+		userIsInTheMiddleOfTypingNumber = false
+	}
+	
+	@IBAction func pushVariable(sender: UIButton) {
+		if userIsInTheMiddleOfTypingNumber {
+			enter()
+		}
+		if let result = brain.pushOperand(sender.currentTitle!) {
+			displayValue = result
+		} else {
+			displayValue = nil
+		}
+	}
+	
+	var displayValue: Double? {
+		get {
+			return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
+		}
+		set {
+			if let num = newValue {
+				display.text = "\(num)"
+			} else {
+				if let result = brain.evaluate(){
+					display.text = "\(result)"
+				} else {
+					display.text = " "
+				}
+			}
 			userIsInTheMiddleOfTypingNumber = false
 			userIsInTheMiddleOfTypingFraction = false
+			history.text = brain.description != "" ? brain.description + " =" : ""
 		}
 	}
 }
