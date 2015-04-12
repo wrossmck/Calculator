@@ -15,6 +15,7 @@ class CalculatorBrain {
 		case Const(String, () -> Double)
 		case UnaryOperation(String, Double -> Double)
 		case BinaryOperation(String, (Double, Double) -> Double)
+		case Variable(String)
 		
 		var description: String{
 			get {
@@ -27,10 +28,16 @@ class CalculatorBrain {
 					return unary
 				case .BinaryOperation(let binary, _):
 					return binary
+				case .Variable(let symbol):
+					return symbol
 				}
 			}
 		}
 	}
+	
+	private var opStack = [Op]()
+	private var knownOps = [String : Op]()
+	var variableHeap = [String: Double]()
 	
 	typealias PropertyList = AnyObject
 	var program: PropertyList {
@@ -56,8 +63,6 @@ class CalculatorBrain {
 		}
 	}
 	
-	private var opStack = [Op]()
-	private var knownOps = [String : Op]()
 	
 	init (){
 		func learnOp (op: Op){
@@ -104,6 +109,8 @@ class CalculatorBrain {
 						return (operation(operand1, operand2), operandEvaluation2.remainingOps)
 					}
 				}
+			case .Variable(let symbol):
+				return (variableHeap[symbol], remainingOps)
 			}
 		}
 		return (nil, ops)
@@ -135,6 +142,8 @@ class CalculatorBrain {
 						return ("\(operand2) \(operation) \(operand1)", operandEvaluation2.remainingOps)
 					}
 				}
+			case .Variable(let symbol):
+				return (symbol, remainingOps)
 			}
 		}
 //		we actually want this to return something valid
@@ -158,6 +167,10 @@ class CalculatorBrain {
 	
 	func pushOperand(operand: Double) -> Double?{
 		opStack.append(Op.Operand(operand))
+		return evaluate()
+	}
+	func pushOperand(operand: String) -> Double? {
+		opStack.append(Op.Variable(operand))
 		return evaluate()
 	}
 	
