@@ -41,10 +41,13 @@ class CalculatorBrain {
 		set {
 			if let opSymbols = newValue as? Array<String>{
 				var newOpStack = [Op]()
+				
+				let nf = NSNumberFormatter()
+				
 				for opSymbol in opSymbols{
 					if let op = knownOps[opSymbol]{
 						newOpStack.append(op)
-					} else if let operand = NSNumberFormatter().numberFromString(opSymbol)?.doubleValue {
+					} else if let operand = nf.numberFromString(opSymbol)?.doubleValue {
 						newOpStack.append(.Operand(operand))
 					}
 				}
