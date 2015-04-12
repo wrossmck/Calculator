@@ -10,118 +10,96 @@ import UIKit
 import XCTest
 
 class calculatorTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
 	
-    func testCalculatorBrain() {
-        // This is an example of a functional test case.
+	func testCalculatorBrain() {
 		
-		self.measureBlock() {
-			
-			var cb = CalculatorBrain()
-			cb.pushOperand(4.5)
-			cb.pushOperand(8)
-			cb.performOperation("*")
-			cb.pushOperand(8)
-			cb.performOperation("+")
-			
-			let res = cb.evaluate()
-			
-			XCTAssert(res == 44, "Pass")
-		}
-    }
+		var cb = CalculatorBrain()
+		cb.pushOperand(4.5)
+		cb.pushOperand(8)
+		cb.performOperation("*")
+		XCTAssert(cb.evaluate() == 36, "Calculates first Operation")
+		cb.pushOperand(8)
+		cb.performOperation("+")
+		XCTAssert(cb.evaluate() == 44, "Calculates subsequent operations")
+	}
 	
 	func testOptionalDouble() {
-		self.measureBlock() {
-			
-			var cb = CalculatorBrain()
-			cb.performOperation("*")
-			
-			let res = cb.evaluate()
-			XCTAssert(res == nil, "Pass")
-		}
+		var cb = CalculatorBrain()
+		cb.performOperation("*")
+		
+		let res = cb.evaluate()
+		XCTAssert(res == nil, "Result can be Optional")
 	}
-	func testCalculatorBrainDescription() {
+	
+	func testDescription() {
 		var cb = CalculatorBrain()
 		
 		cb.pushOperand(4.5)
 		cb.pushOperand(8)
 		cb.performOperation("*")
 		
-		let res = cb.evaluate()
-		let history = cb.description
-		XCTAssert(res == 36, "Pass")
-//		this assert is commented out, because xcode currently does not perform variable expansion during tests
-//		XCTAssert(history == "* , 8.0 , 4.5", "Pass")
-		XCTAssert(history == "[(Enum Value), (Enum Value), (Enum Value)]", "Pass")
+		XCTAssert(cb.evaluate() == 36, "Pass")
+		XCTAssert(cb.description == "(4.5 * 8)", "Basic multiplication description")
 	}
+	
 	func testSimpleAddition() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(0.1)
-		brain.pushOperand(0.3)
-		brain.performOperation("+")
-		let result = brain.evaluate()
-		XCTAssertEqual(0.4, result!, "Pass")
+		let cb = CalculatorBrain()
+		cb.pushOperand(0.1)
+		cb.pushOperand(0.3)
+		cb.performOperation("+")
+		XCTAssertTrue(cb.evaluate() == 0.4, "Pass")
 	}
 	
 	func testMoreAddition() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(3)
-		brain.pushOperand(4)
-		brain.pushOperand(5)
-		brain.performOperation("+")
-		brain.performOperation("+")
-		let result = brain.evaluate()
+		let cb = CalculatorBrain()
+		cb.pushOperand(3)
+		cb.pushOperand(4)
+		cb.pushOperand(5)
+		cb.performOperation("+")
+		cb.performOperation("+")
+		let result = cb.evaluate()
 		XCTAssertEqual(12, result!, "Pass")
 	}
 	
 	func testAdditionDescription() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(3)
-		brain.pushOperand(4)
-		brain.performOperation("+")
-		let result = brain.evaluate()
-//		XCTAssertEqual("(3.0+4.0)", brain.description, "Pass")
+		let cb = CalculatorBrain()
+		cb.pushOperand(3)
+		cb.pushOperand(4)
+		cb.performOperation("+")
+		let result = cb.evaluate()
+		XCTAssertEqual("(3.0+4.0)", cb.description, "Pass")
 	}
 	
 	func testMoreAdditionDescription() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(3)
-		brain.pushOperand(4)
-		brain.pushOperand(5)
-		brain.performOperation("+")
-		brain.performOperation("+")
-		let result = brain.evaluate()
-//		XCTAssertEqual("(3.0+(4.0+5.0))", brain.description, "Pass")
+		let cb = CalculatorBrain()
+		cb.pushOperand(3)
+		cb.pushOperand(4)
+		cb.pushOperand(5)
+		cb.performOperation("+")
+		cb.performOperation("+")
+		let result = cb.evaluate()
+		XCTAssertEqual("(3.0+(4.0+5.0))", cb.description, "Pass")
 	}
 	
 	func testCos() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(10)
-		brain.performOperation("cos")
-		let result = brain.evaluate()
+		let cb = CalculatorBrain()
+		cb.pushOperand(10)
+		cb.performOperation("cos")
+		let result = cb.evaluate()
 		XCTAssertEqualWithAccuracy(-0.839, result!, 0.01, "Pass")
 	}
 	func testCosDescription() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(10)
-		brain.performOperation("cos")
-//		XCTAssertEqual("cos(10.0)", brain.description, "Pass")
+		let cb = CalculatorBrain()
+		cb.pushOperand(10)
+		cb.performOperation("cos")
+		XCTAssertEqual("cos(10.0)", cb.description, "Pass")
 	}
 	
 	func testUnaryDescription() {
-		let brain = CalculatorBrain()
-		brain.pushOperand(10)
-		brain.performOperation("cos")
-		println("\n\n" + brain.description + "\n\n")
+		let cb = CalculatorBrain()
+		cb.pushOperand(10)
+		cb.performOperation("cos")
+		println("\n\n" + cb.description + "\n\n")
 		XCTAssertTrue(true, "Pass")
 	}
 }
